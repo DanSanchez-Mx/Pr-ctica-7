@@ -1,0 +1,94 @@
+// Este código será una representación del videojuego "Ape Out!".
+
+// Seccion de librerias que se usarán en el codigo
+#include <stdio.h>
+
+// Declaración de variables
+int Disparado, shoot, shootTimes, Enemy, enemyIn, whoEnemyIn;
+float powerShoot, masa, acel, Fuerza;
+float Life = 3.0;
+
+// Declaracón de funciones
+int main() {
+    // Bloque de instrucciones
+    printf ("¿Te hirio una bala? \n Si = 1 \n No = 0 \n");
+    scanf ("%d", &Disparado);
+            
+    // Bloque para la mecanica de la vida
+    if (Disparado == 1){
+        printf("\n¿Cual de los cuatro tipos de enemigos te dio?\n");
+        scanf("%d", &Enemy);
+        
+        // Dependiendo el tipo de enemigo que le disparo es la cantidad de vida que le baja
+        if (Enemy == 4 || Enemy == 3){
+            powerShoot = 1.5;
+        } else {
+            if (Enemy == 2 || Enemy == 1){
+                powerShoot = 1.0;
+            }
+        }
+        printf("\n¿Cuantas veces te alcanzo el disparo?\n");
+        scanf ("%d", &shootTimes);
+        Life = Life - (shootTimes * powerShoot);
+        
+        // Ahora se calculara si el jugador sigue con vida o ah muerto
+        if (Life <= 0){
+            printf("\a\nGame Over \n");
+        } else{
+            printf("Su vida es de: %f \n", Life);
+        }
+    
+    // Esta parte del codigo sera para saber si se tiene agarrado algo
+    } else {
+        printf("\n¿Tienes agarrado a un sujetos? \n Si = 1 \n No = 0 \n");
+        scanf("%d", &enemyIn);
+       
+        /* Esta parte del codigo es para saber la fuerza con la cual será
+        aventado el enemigo */
+        if (enemyIn == 1){
+            printf("\n¿Qué tipo de los 4 tipos de enemigos tienes agarrado?\n");
+            scanf("%d", &whoEnemyIn);
+            if (whoEnemyIn == 4 || whoEnemyIn == 3){
+                masa = 5;
+            }else{
+                if (whoEnemyIn == 2 || whoEnemyIn == 1){
+                    masa = 3;
+                }
+            }
+            Fuerza = (7 * 3) / masa;
+            printf ("\nLa fuerza con la que aventara ese enemigo será de: %f [N]\n", Fuerza);
+            
+            /*Esta ultima parte del codigo sirva para saber si te han disparado
+            con un enemigo sujetado y si aun resiste el enemigo otro disparo */
+            printf ("\n¿Te han disparado con el enemigo agarrado? \n Si = 1 \n No = 0 \n");
+            scanf ("%d", &Disparado);
+                    
+            // Bloque para la mecanica de la vida del enemigo utilizado como escudo
+            if (Disparado == 1){
+                printf("\n¿Cual enemigo te dio?\n");
+                scanf("%d", &Enemy);
+                
+                /* Dependiendo el tipo de enemigo que le disparo es la cantidad de vida
+                 que le bajara a su compañero enemigo */
+                if (Enemy == 4 || Enemy == 3){
+                    powerShoot = 1.5;
+                } else {
+                    if (Enemy == 2 || Enemy == 1){
+                        powerShoot = 1.0;
+                    }
+                }
+                printf("\n¿Cuantas veces te alcanzo el disparo?\n");
+                scanf ("%d", &shootTimes);
+                Life = Life - (shootTimes * powerShoot);
+                
+                // Ahora se calculara si el jugador sigue con el enemigo como escudo o no
+                if (Life <= 0){
+                    printf("\a\nHuye! \n");
+                } else{
+                    printf("La vida de su escudo es de: %f \n", Life);
+                }
+            }
+        }
+    }
+    
+}
